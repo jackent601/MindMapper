@@ -1,0 +1,28 @@
+#jumbo {
+    margin-top: 50px;
+    padding: 100px 0px 100px 0px;
+    background-color: crimson;
+    color:white;
+    text-align: center;
+    background-image: url('./../media/bkg.jpg');
+    background-position-y: center ;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#container {
+    padding-top: 20px;
+    width:80%;
+    margin: 0 auto;
+}
+
+.myminheight {
+    min-height: 200px;
+}
+
+.myfooter {
+    position:absolute;
+    bottom: 2px;
+    right:2px;
+}
