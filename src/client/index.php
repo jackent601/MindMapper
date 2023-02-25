@@ -30,9 +30,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker Home Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>    
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.12/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.12/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.12/dist/js/uikit-icons.min.js"></script>
+    <!-- Personal css and picnic -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="./css/mystyles.css">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <!-- script to display mood -->
     <script src = "./js/displayMoodEntries.js"></script>
 
@@ -47,8 +53,7 @@
             $(function(){
                 var banner = "Welcome Back <?php echo $_SEESION['USER_NAME'] ?>";
                 $("#jumbo").append(banner);
-            });
-            
+            });            
 
             // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
             $.ajax({
@@ -59,7 +64,18 @@
                 },
                 type: "GET",
                 dataType: "json",
-                success: function (res) {displayMoodEntries(res);},
+                success: function (res) {
+                    // Display Cards
+                    displayMoodEntries(res);
+                    
+                    // Add Hover Event to expand event context
+                    $('.hoverSwitchParent').hover(
+                    function () {
+                        // Get Child and show
+                        $(this).find('.hoverSwitchChild').toggle('show')
+                        console.log("Hovered!");
+                    });
+                },
                 error: function (res) {console.log(res);}}) 
         }else{
             // Set Banner
@@ -88,9 +104,12 @@
     <div id="jumbo">
     </div>
 
-    <div id="container">   
-        <div id="dynamic"></div>   
-        <div class="flex two three-600 four-1200" id="newrows"></div>
+    <div class="uk-section uk-background-muted">
+        <div class="uk-container">
+            <h2 class="uk-heading-small uk-text-left">Mood Entries</h2>
+                <div id="newrows" class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+                </div>
+        </div>
     </div>
 
 </body>

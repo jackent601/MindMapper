@@ -12,13 +12,13 @@
 }
 
 #container {
-    padding-top: 20px;
+    padding-top: 0px;
     width:80%;
     margin: 0 auto;
 }
 
 .myminheight {
-    min-height: 200px;
+    min-height: 0px;
 }
 
 .myfooter {
@@ -26,3 +26,14 @@
     bottom: 2px;
     right:2px;
 }
+
+
+
+.hoverSwitchChild{
+    display: none;
+}
+
+.uk-card-badge{
+    background-color: rgb(221, 215, 215);
+}
+

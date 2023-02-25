@@ -7,18 +7,22 @@ function displayMoodEntries(userMoodEntries){
     userMoodEntries.forEach(moodEntry => {
         
         // Unpack Entry
-        var mood_id = moodEntry.mood_id;
+        var mood_name = moodEntry.name;
+        var mood_desc = moodEntry.descriptor;
         var context = moodEntry.context;
         var datetime = moodEntry.datetime;
         // Format Date
         var datetimeFormatted = getDateStringFromDateTime(datetime);
 
         // Form New Div
-        var new_div = "<div><span><article class='card myminheight'>"+
-        "<header><h4>"+ mood_id + "</h4></header>"+
-        "<p> Datetime:"+ datetime + "</p>"+
-        "<p> Datetime Formatted:"+ datetimeFormatted + "</p>"+
-        "<footer class='myfooter'></footer></article></span></div>";
+        var new_div = "<div><div class='hoverSwitchParent uk-card uk-card-body uk-card-hover uk-card-default uk-card-small'>"+
+        // Add badge for deleting/editing
+        "<div class='uk-card-badge'><button class='pseudo'>Delete</button></div>" +
+        "<h3 class='uk-card-title uk-remove-margin-bottom uk-card-small'>" + datetimeFormatted + "</h3>" + 
+        "<b>" + mood_name + "</b>"+
+        // Add hidden context which is expnded on hover
+        "<p class = 'hoverSwitchChild'><i>" + context + "</i></p>" +
+        "</div></div>"
 
         // Add to DOM
         $("#newrows").append(new_div);
