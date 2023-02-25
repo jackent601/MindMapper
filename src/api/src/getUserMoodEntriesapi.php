@@ -5,11 +5,11 @@
     /*
     getUserMoodEntries API Documentation:
 
-        Good example of APi abstracting more complicated database architecture in the back end
-        To allow for 'core' moods and 'custom' moods the database separates these
-        To get the name for a particular mood entry need to preform database stitiching 
-        database backend needs different tables for 'core' and 'custom' to allow customisation without sacrificing 
-        database integrity/hygeine
+        Good example of APi abstracting more complicated database architecture in the back end:
+            To allow for 'core' moods and 'custom' moods the database separates these
+            To get the name for a particular mood entry need to preform database stitiching 
+            database backend needs different tables for 'core' and 'custom' to allow customisation without sacrificing 
+            database integrity/hygeine
 
     Return:
         array:
@@ -58,7 +58,7 @@
         LEFT JOIN custom_moods ON all_moods.custom_mood_id = custom_moods.id
         WHERE mood_entry.user_id = '$user_id' AND all_moods.custom_mood_id IS NOT NULL) results
         -- Finally order descending by date
-        ORDER BY datetime;";
+        ORDER BY datetime DESC;";
 
         // Fetch Query
         $moodEntries = $conn->query($moodQuery);
