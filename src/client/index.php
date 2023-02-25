@@ -4,7 +4,8 @@
     // This will be set at login
     // DEV PURPOSES ONLY
     $_SESSION["API_KEY"] = "validAPIkeyTest";
-    $_SESSION['LOGGED_IN'] = false;
+    $_SEESION["USER_NAME"] = "Jackent";
+    $_SESSION['LOGGED_IN'] = true;
 ?>
 
 <script>
@@ -42,7 +43,13 @@
         (loggedin is a session variable set at login (along with api-key))
         */
         if(loggedIn_js){
-            // Set Banner
+            // Set Banner (if logged in, username will definitely be set)
+            $(function(){
+                var banner = "Welcome Back <?php echo $_SEESION['USER_NAME'] ?>";
+                $("#jumbo").append(banner);
+            });
+            
+
             // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
             $.ajax({
                 url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
@@ -58,7 +65,6 @@
             // Set Banner
             console.log("Not Logged in")
         }
-
         </script>
     </script>
 </head>
