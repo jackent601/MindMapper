@@ -2,7 +2,7 @@
         // Session Required to get api key
         session_start();
         // This will be set at login
-        $_SESSION["API_KEY"] = "apitestkeey"
+        $_SESSION["API_KEY"] = "validAPIkeyTest"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,11 +16,6 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <!-- Load script to display mood -->
     <script src = "./js/displayUserMoodEntries.js"></script>
-    <?php
-    // Get API Key
-    $api_key = $_SESSION["API_KEY"];
-    echo "<script>console.log('API KEY: ".$api_key."')</script>";
-    ?>
     <script>
         // Load JSON data with AJAX
         // $.ajax({
@@ -39,13 +34,15 @@
 
         // Load and Display Moods
         $.ajax({
-            url: "http://localhost/project/src/api/src/getUserMoodEntriesapi.php",
+            url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
             beforeSend: function(request) {
+                // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
             },
             type: "GET",
             dataType: "json",
-            success: function (res) {displayMovies(res);}})
+            success: function (res) {console.log(res);},
+            error: function (res) {console.log(res);}})
         </script>
     </script>
 </head>
