@@ -2,6 +2,7 @@
 <?php
     /*
     Checks the API-key provided in a request header, exits if not provided or invalid, passes if valid
+    Assigns $user_id if key is valid
     */
 
     header("Content-Type: application/json");
@@ -32,12 +33,15 @@
         exit;
     }
 
-    if ($_SERVER['PHP_SELf'] = "/project/src/api/src/verifyApiKeyHeader.php"){
+    // Checks passed, valid api key, get user_id associated with key
+    $user_id = $apiCheck->fetch_assoc()["user_id"];
+
+    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/verifyApiKeyHeader.php"){
         // verify api key visited directly, hence only an api check
         http_response_code(202);
-        echo json_encode(["message" => "Valid API key provided"]);
+        echo json_encode(["message" => "Valid API key provided", "key_owner_user_id" => $user_id]);
         exit;
     }else{
-        // Not visited directly hence used as a utility elsewhere so pass
+        // Not visited directly hence used as a utility so pass
     }
 ?>
