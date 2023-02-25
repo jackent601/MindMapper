@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2023 at 01:50 AM
+-- Generation Time: Feb 25, 2023 at 06:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -47,6 +47,25 @@ INSERT INTO `all_moods` (`id`, `core_mood_id`, `custom_mood_id`) VALUES
 (7, NULL, 2),
 (8, NULL, 3),
 (9, NULL, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `api_keys`
+--
+
+CREATE TABLE `api_keys` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `api_key` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `api_keys`
+--
+
+INSERT INTO `api_keys` (`id`, `user_id`, `api_key`) VALUES
+(1, 1, 'validAPIkeyTest');
 
 -- --------------------------------------------------------
 
@@ -206,6 +225,12 @@ ALTER TABLE `all_moods`
   ADD KEY `FK_all_moods_custom_mood_id` (`custom_mood_id`);
 
 --
+-- Indexes for table `api_keys`
+--
+ALTER TABLE `api_keys`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `core_moods`
 --
 ALTER TABLE `core_moods`
@@ -256,6 +281,12 @@ ALTER TABLE `user_tags`
 --
 ALTER TABLE `all_moods`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `api_keys`
+--
+ALTER TABLE `api_keys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `core_moods`
