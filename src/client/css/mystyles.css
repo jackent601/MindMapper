@@ -34,6 +34,10 @@
 }
 
 .uk-card-badge{
-    background-color: rgb(221, 215, 215);
+    background-color: rgb(236, 234, 234);
 }
 
+.expandButton{
+    background:rgb(219, 219, 219);
+    color: rgb(47, 45, 45)
+}

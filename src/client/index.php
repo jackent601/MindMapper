@@ -22,6 +22,22 @@
     console.log("Logged in JS: "+loggedIn_js);
 </script>
 
+<script>
+    // Function to show or hide mood entries
+        function toggleMoodEntriesDisplay(){
+            // Toggle display and button value
+            var rows = document.getElementById("hideNewRows");
+            var btn = document.getElementById("toggleMoodEntries");
+            if (rows.style.display === "none") {
+                rows.style.display = "block";
+                btn.textContent  = "hide";
+            } else {
+                rows.style.display = "none";
+                btn.textContent  = "show";
+            }
+        }
+    </script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,15 +91,6 @@
                         // Get Child and show
                         $(this).find('.hoverSwitchChild').toggle('show')
                     });
-
-                    // Add confirmation event for mood deletion
-                    // $('.confirmDeleteMood').on('click', function () {
-                    //     if(confirm('Are you sure you want to delete this entry?')){
-                    //         console.log("Request to delete mood id:" + $(this).attr('id'));
-                    //     }else{
-                    //         console.log("Mood Entry Deletion Aborted");
-                    //     }
-                    // });
                 },
                 error: function (res) {console.log(res);}}) 
         }else{
@@ -93,6 +100,16 @@
                 $("#jumbo").append(banner);
             });   
         }
+
+        // Start page with moods hidden
+        $(function(){
+            var rows = document.getElementById("hideNewRows");
+            var btn = document.getElementById("toggleMoodEntries");
+            rows.style.display = "none";
+            btn.textContent  = "show";
+            console.log("execute?");
+            console.log(btn.textContent);
+        })
         </script>
     </script>
 </head>
@@ -117,9 +134,20 @@
     </div>
 
     <div class="uk-section uk-background-muted">
+        <div class="uk-container uk-align-center">
+            <h2 class="uk-heading-small uk-heading-line uk-text-center "><span>Log a Mood</span></h2>
+            <button id = "toggleMoodEntry" class="expandButton uk-align-center"><i>start an entry</i></button>
+        </div>
+    </div>
+
+    <div class="uk-section uk-background-muted">
         <div class="uk-container">
-            <h2 class="uk-heading-small uk-text-left">Mood Entries</h2>
-                <div id="newrows" class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+            <h3 class="uk-heading-small uk-heading-line uk-text-center "><span>Mood Entries</span></h3>
+            <button id = "toggleMoodEntries" class="expandButton uk-align-center" onclick="toggleMoodEntriesDisplay()"><i>show</i></button>
+            <!-- <h2 class="uk-heading-small uk-text-left">Mood Entries</h2> -->
+                <div id="hideNewRows">
+                    <div id="newrows" class="uk-child-width-1-2@s uk-grid-match" uk-grid>
+                    </div>
                 </div>
         </div>
     </div>
