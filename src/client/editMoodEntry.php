@@ -4,7 +4,7 @@
     // This will be set at login
     // DEV PURPOSES ONLY
     $_SESSION["API_KEY"] = "validAPIkeyTest";
-    $_SEESION["USER_NAME"] = "Jackent";
+    $_SESSION["USER_NAME"] = "Jackent";
     $_SESSION['LOGGED_IN'] = true;
     // $_GET['editMoodEntry'] = 4;
 ?>
@@ -60,12 +60,13 @@
         if(loggedIn_js){
             // Set Banner
             $(function(){
-                var banner = "<b>Welcome Back <?php echo $_SEESION['USER_NAME'] ?> </b>";
+                var banner = "<b>Welcome Back <?php echo $_SESSION['USER_NAME'] ?> </b>";
                 $("#jumbo").append(banner);
             });
             
             // Get Mood To Update
             // Load and Display Mood Entry to edit
+            // The load function also assigns appropriate api handling for editing/deleting
             $.ajax({
                 url: "http://localhost/Project/src/api/src/getMoodEntryFromIDapi.php?MOOD_ENTRY_ID="+mood_entry_id,
                 beforeSend: function(request) {
@@ -78,19 +79,11 @@
                 success: function (res) {
                     // dev - console.log(res);
                     // Display Form
-                    displayEditMoodEntryForm(res);
+                    displayEditMoodEntryForm(res, "<?php echo $_SESSION["API_KEY"] ?>");
                 },
                 // On Error, loh error results, display no form
                 error: function (res) {console.log("failed");}});
 
-                // Set Confirmation Event on Delete
-                $('#deleteMoodEntry').on('click', function () {
-                if(confirm('Are you sure you want to delete this entry?')){
-                    console.log("Request to delete mood id:" + $(this).attr('id'));
-                }else{
-                    console.log("Mood Entry Deletion Aborted");
-                }
-            });
         }else{
             // Set Login Banner
             $(function(){
