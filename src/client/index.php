@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="./css/mystyles.css">
     <!-- script to display mood -->
+    <script src = "./js/utilities.js"></script>
     <script src = "./js/displayMoodEntries.js"></script>
 
     <script>

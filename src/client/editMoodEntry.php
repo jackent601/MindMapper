@@ -6,60 +6,32 @@
     $_SESSION["API_KEY"] = "validAPIkeyTest";
     $_SEESION["USER_NAME"] = "Jackent";
     $_SESSION['LOGGED_IN'] = true;
-    $_POST['editMoodEntry'] = 4;
+    // $_GET['editMoodEntry'] = 4;
 ?>
 
 <script>
     // Translates PHP variables into js as js more convenient to format document
     var loggedIn_js = 
     <?php 
-        if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']){
+        if (isset($_SESSION['LOGGED_IN']) and $_SESSION['LOGGED_IN']){
             echo "true"; 
         }else{
             echo "false";
         }
     ?>;
+    console.log("<?php if(isset($_GET['editMoodEntry'])){echo "MOOD ID SET";}?>")
+    
     var mood_entry_id = 
     <?php 
-        if (isset($_SESSION['LOGGED_IN']) && isset($_POST['editMoodEntry'])){
-            echo $_POST['editMoodEntry']; 
+        if (isset($_GET['editMoodEntry'])){
+            echo $_GET['editMoodEntry']; 
         }else{
             echo "'NULL'";
         }
     ?>;
     // Debug
     console.log("Logged in JS: "+loggedIn_js);
-</script>
-
-<script>
-    function displayEditMoodEntryForm(moodEntry){
-    // Unpack Mood Entry
-    var mood_entry_id = moodEntry.id;
-    var mood_name = moodEntry.name;
-    var mood_desc = moodEntry.descriptor;
-    var context = moodEntry.context;
-    var datetime = moodEntry.datetime;
-    // Format Date
-    var datetimeFormatted = getDateStringFromDateTime(datetime);
-
-    // create Form
-    var newForm = "<form>"+
-    // Mood Date (cant be changed)
-    "<fieldset class='uk-fieldset'><legend class='uk-legend'>"+datetimeFormatted+"</legend>"+
-    // Mood Value (cant be changed)
-    "<div class='uk-margin'><h3> Mood </h3><input class='uk-input uk-form-width-medium' type='text' aria-label='disabled' value='"+ mood_name +"' disabled></div>"+
-    // Context (editable)
-    "<div class='uk-margin'><h3> Context </h3></div>"+
-    "<div class='uk-margin'><input name = 'moodContext' class='uk-input' type='text' value='"+context+"'aria-label='Input'></div>"+
-    // Update Buttons
-    "<div class='uk-margin uk-grid-small uk-child-width-auto uk-grid'><p class='uk-margin'>"+
-        "<button id = 'updateMoodEntry' class='uk-button uk-button-default'>Update</button>"+
-        "<button id = 'deleteMoodEntry' class='uk-button uk-button-danger'>Delete</button>"+
-    "</p></div></fieldset></form>";
-
-    // Add to DOM
-    $("#editMoodEntryForm").append(newForm);
-    }
+    console.log("mood_entry_id: "+mood_entry_id);
 </script>
 
 
@@ -80,7 +52,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     <link rel="stylesheet" href="./css/mystyles.css">
     <!-- script to display edit mood form -->
-    <script src = "./js/displayMoodEntries.js"></script>
+    <script src = "./js/utilities.js"></script>
+    <script src = "./js/displayEditMoodEntryForm.js"></script>
 
     <script>
         // User logged in
