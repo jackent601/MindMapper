@@ -1,4 +1,8 @@
-
+function confirmDelete(e){
+    if(!confirm('Are you sure you wish to delete this entry?')) {
+        e.preventDefault();
+    }
+}
 
 function displayEditMoodEntryForm(moodEntry){
     // Unpack Mood Entry
@@ -22,9 +26,8 @@ function displayEditMoodEntryForm(moodEntry){
     // Update Buttons
     "<div class='uk-margin uk-grid-small uk-child-width-auto uk-grid'><p class='uk-margin'>"+
         "<button id = 'updateMoodEntry' class='uk-button uk-button-default'>Update</button>"+
-        "<button id = 'deleteMoodEntry' class='uk-button uk-button-danger'>Delete</button>"+
+        "<button id = 'deleteMoodEntry' class='uk-button uk-button-danger' onclick='confirmDelete(event)''>Delete</button>"+
     "</p></div></fieldset></form>";
-
     // Add to DOM
     $("#editMoodEntryForm").append(newForm);
 }

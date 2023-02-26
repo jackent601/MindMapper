@@ -76,12 +76,11 @@
                 dataType: "json",
                 // On success display mood entry form
                 success: function (res) {
-                    // 
-                    console.log(res);
+                    // dev - console.log(res);
                     // Display Form
                     displayEditMoodEntryForm(res);
                 },
-                // On Error, display error form
+                // On Error, loh error results, display no form
                 error: function (res) {console.log("failed");}});
 
                 // Set Confirmation Event on Delete
@@ -128,32 +127,6 @@
             <h2 class="uk-heading-small uk-text-left">Edit Mood Entry</h2>
             <div>
                 <div id = "editMoodEntryForm" class='uk-card uk-card-body uk-card-hover uk-card-default'>
-                    <!-- <form>
-                        <fieldset class="uk-fieldset">
-
-                            <legend class="uk-legend">Legend</legend>
-
-                            <div class="uk-margin">
-                                <input class="uk-input uk-form-width-medium" type="text" placeholder="disabled" aria-label="disabled" value="disabled" disabled>
-                            </div>
-
-                            <div class="uk-margin">
-                                <h3> Mood Context </h3>
-                            </div>
-
-                            <div class="uk-margin">
-                                <input name = "moodContext" class="uk-input" type="text" placeholder="Input" aria-label="Input">
-                            </div>
-
-                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                                <p class="uk-margin">
-                                    <button id = "updateMoodEntry" class="uk-button uk-button-default">Update</button>
-                                    <button id = "deleteMoodEntry" class="uk-button uk-button-danger">Delete</button>
-                                </p>    
-                            </div>
-
-                        </fieldset>
-                    </form> -->
                 </div>
         </div>
     </div>
