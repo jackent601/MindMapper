@@ -24,20 +24,34 @@
 
 <script>
     // Function to show or hide mood entries
-        function toggleMoodEntriesDisplay(){
-            // Toggle display and button value
-            var rows = document.getElementById("hideNewRows");
-            var btn = document.getElementById("toggleMoodEntries");
-            if (rows.style.display === "none") {
-                rows.style.display = "block";
-                btn.textContent  = "hide";
-            } else {
-                rows.style.display = "none";
-                btn.textContent  = "show";
-            }
+    function toggleMoodEntriesDisplay(){
+        // Toggle display and button value
+        var rows = document.getElementById("hideNewRows");
+        var btn = document.getElementById("toggleMoodEntries");
+        if (rows.style.display === "none") {
+            rows.style.display = "block";
+            btn.innerHTML  = "<i>hide</i>";
+        } else {
+            rows.style.display = "none";
+            btn.innerHTML  = "<i>show past moods</i>";
         }
-    </script>
-
+    }
+</script>
+<script>
+    // Function to show or hide mood entry form
+    function toggleMoodEntryDisplay(){
+        // Toggle display and button value
+        var rows = document.getElementById("hideMoodEntryForm");
+        var btn = document.getElementById("toggleMoodEntryForm");
+        if (rows.style.display === "none") {
+            rows.style.display = "block";
+            btn.innerHTML  = "<i>hide</i>";
+        } else {
+            rows.style.display = "none";
+            btn.innerHTML  = "<i>log a mood</i>";
+        }
+    }
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +72,24 @@
     <!-- script to display mood -->
     <script src = "./js/utilities.js"></script>
     <script src = "./js/displayMoodEntries.js"></script>
+
+    <script>
+        // Start page with moods hidden
+        $(function(){
+            var rows = document.getElementById("hideNewRows");
+            var btn = document.getElementById("toggleMoodEntries");
+            rows.style.display = "none";
+            btn.innerHTML  = "<i>show past moods</i>";
+        })
+
+        // Start page with mood entry form hidden
+        $(function(){
+            var form = document.getElementById("hideMoodEntryForm");
+            var btn = document.getElementById("toggleMoodEntryForm");
+            form.style.display = "none";
+            btn.innerHTML  = "<i>log a mood...</i>";
+        })
+    </script>
 
     <script>
         /* 
@@ -100,16 +132,6 @@
                 $("#jumbo").append(banner);
             });   
         }
-
-        // Start page with moods hidden
-        $(function(){
-            var rows = document.getElementById("hideNewRows");
-            var btn = document.getElementById("toggleMoodEntries");
-            rows.style.display = "none";
-            btn.textContent  = "show";
-            console.log("execute?");
-            console.log(btn.textContent);
-        })
         </script>
     </script>
 </head>
@@ -136,7 +158,45 @@
     <div class="uk-section uk-background-muted">
         <div class="uk-container uk-align-center">
             <h2 class="uk-heading-small uk-heading-line uk-text-center "><span>Log a Mood</span></h2>
-            <button id = "toggleMoodEntry" class="expandButton uk-align-center"><i>start an entry</i></button>
+            <button id = "toggleMoodEntryForm" class="expandButton uk-align-center" onclick = "toggleMoodEntryDisplay()"><i>log a mood</i></button>
+            <div id="hideMoodEntryForm">
+                <form>
+                    <fieldset class="uk-fieldset">
+
+                        <legend class="uk-legend">Legend</legend>
+
+                        <div class="uk-margin">
+                            <input class="uk-input" type="text" placeholder="Input" aria-label="Input">
+                        </div>
+
+                        <div class="uk-margin">
+                            <select class="uk-select" aria-label="Select">
+                                <option>Option 01</option>
+                                <option>Option 02</option>
+                            </select>
+                        </div>
+
+                        <div class="uk-margin">
+                            <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
+                        </div>
+
+                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                            <label><input class="uk-radio" type="radio" name="radio2" checked> A</label>
+                            <label><input class="uk-radio" type="radio" name="radio2"> B</label>
+                        </div>
+
+                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                            <label><input class="uk-checkbox" type="checkbox" checked> A</label>
+                            <label><input class="uk-checkbox" type="checkbox"> B</label>
+                        </div>
+
+                        <div class="uk-margin">
+                            <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1" aria-label="Range">
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
 
