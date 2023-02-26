@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="./css/mystyles.css">
     <!-- script to display edit mood form -->
     <script src = "./js/utilities.js"></script>
-    <script src = "./js/displayEditMoodEntryForm.js"></script>
+    <script src = "./js/editAndDeleteMoodEntryFunctions.js"></script>
 
     <script>
         // User logged in
