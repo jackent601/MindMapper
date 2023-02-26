@@ -5,6 +5,8 @@
     /*
     getUserMoodEntries API Documentation:
 
+        Returns all Mood entries for a specific user
+
         Good example of APi abstracting more complicated database architecture in the back end:
             To allow for 'core' moods and 'custom' moods the database separates these
             To get the name for a particular mood entry need to preform database stitiching 
