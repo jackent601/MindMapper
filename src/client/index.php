@@ -51,7 +51,7 @@
         if(loggedIn_js){
             // Set Banner (if logged in, username will definitely be set)
             $(function(){
-                var banner = "Welcome Back <?php echo $_SEESION['USER_NAME'] ?>";
+                let banner = "<b>Welcome Back <?php echo $_SEESION['USER_NAME'] ?> </b>";
                 $("#jumbo").append(banner);
             });            
 
@@ -73,13 +73,24 @@
                     function () {
                         // Get Child and show
                         $(this).find('.hoverSwitchChild').toggle('show')
-                        console.log("Hovered!");
                     });
+
+                    // Add confirmation event for mood deletion
+                    // $('.confirmDeleteMood').on('click', function () {
+                    //     if(confirm('Are you sure you want to delete this entry?')){
+                    //         console.log("Request to delete mood id:" + $(this).attr('id'));
+                    //     }else{
+                    //         console.log("Mood Entry Deletion Aborted");
+                    //     }
+                    // });
                 },
                 error: function (res) {console.log(res);}}) 
         }else{
-            // Set Banner
-            console.log("Not Logged in")
+            // Set Log in Banner
+            $(function(){
+                var banner = "<b>Please Login</b>";
+                $("#jumbo").append(banner);
+            });   
         }
         </script>
     </script>
