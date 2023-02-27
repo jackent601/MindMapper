@@ -22,6 +22,9 @@
             
                 // Verify API key (see documentation)
                 include "verifyApiKeyHeader.php";
+
+                // Catch escape strings
+                $new_mood_context = $conn->real_escape_string($new_mood_context);
     
                 // Check Mood ID is valid (could be functionalised)
                 $checkIDQuery = "SELECT id FROM mood_entry WHERE id='$mood_entry_id';";

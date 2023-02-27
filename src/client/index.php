@@ -72,6 +72,8 @@
     <!-- script to display mood -->
     <script src = "./js/utilities.js"></script>
     <script src = "./js/displayMoodEntries.js"></script>
+    <!-- script to handle entering moods -->
+    <script src = "./js/enterMoodFunctions.js"></script>
 
     <script>
         // Start page with moods hidden
@@ -104,7 +106,7 @@
                 $("#jumbo").append(banner);
             });            
 
-            // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
+            // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
             $.ajax({
                 url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
                 beforeSend: function(request) {
@@ -117,7 +119,7 @@
                     // Display Cards
                     displayMoodEntries(res);
                     
-                    // Add Hover Event to expand event context
+                    // Add Hover Event to expand mood context
                     $('.hoverSwitchParent').hover(
                     function () {
                         // Get Child and show
@@ -125,6 +127,21 @@
                     });
                 },
                 error: function (res) {console.log(res);}}) 
+
+            // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
+            $.ajax({
+                url: "http://localhost/Project/src/api/src/getUserMoodOptionsapi.php",
+                beforeSend: function(request) {
+                    // Setting x-api-key is crucial to access database and find user_id
+                    request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
+                },
+                type: "GET",
+                dataType: "json",
+                success: function (res) {
+                    // Display Cards
+                    populateMoodOptionsEntryForm(res);
+                },
+                error: function (res) {console.log(res);}})
         }else{
             // Set Log in Banner
             $(function(){
@@ -160,39 +177,22 @@
             <h2 class="uk-heading-small uk-heading-line uk-text-center "><span>Log a Mood</span></h2>
             <button id = "toggleMoodEntryForm" class="expandButton uk-align-center" onclick = "toggleMoodEntryDisplay()"><i>log a mood</i></button>
             <div id="hideMoodEntryForm">
-                <form>
+                <form id="newMoodEntryForm">
                     <fieldset class="uk-fieldset">
 
-                        <legend class="uk-legend">Legend</legend>
+                        <legend class="uk-legend">Mood Entry</legend>
 
                         <div class="uk-margin">
-                            <input class="uk-input" type="text" placeholder="Input" aria-label="Input">
-                        </div>
-
-                        <div class="uk-margin">
-                            <select class="uk-select" aria-label="Select">
-                                <option>Option 01</option>
-                                <option>Option 02</option>
+                            <h3> Mood </h3>
+                            <select id="moodOptionSelectDiv" class="uk-select" aria-label="Select" name = "mood_selection">
                             </select>
                         </div>
 
                         <div class="uk-margin">
-                            <textarea class="uk-textarea" rows="5" placeholder="Textarea" aria-label="Textarea"></textarea>
+                            <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
                         </div>
 
-                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                            <label><input class="uk-radio" type="radio" name="radio2" checked> A</label>
-                            <label><input class="uk-radio" type="radio" name="radio2"> B</label>
-                        </div>
-
-                        <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                            <label><input class="uk-checkbox" type="checkbox" checked> A</label>
-                            <label><input class="uk-checkbox" type="checkbox"> B</label>
-                        </div>
-
-                        <div class="uk-margin">
-                            <input class="uk-range" type="range" value="2" min="0" max="10" step="0.1" aria-label="Range">
-                        </div>
+                        <button id="moodEntrySubmit" class="moodEntrySubmit uk-align-center", onclick="handleMoodEntrySubmission(event, '<?php echo $_SESSION['API_KEY']?>')">Log Mood</button>
 
                     </fieldset>
                 </form>
