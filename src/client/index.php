@@ -212,5 +212,12 @@
         </div>
     </div>
 
+    <div class="uk-section uk-background-muted">
+        <div class="uk-container">
+            <h3 class="uk-heading-small uk-heading-line uk-text-center "><span>Mood Charts</span></h3>
+            <button id = "goToMoodCharts" class="expandButton uk-align-center" onclick="window.location.href='./moodCharts.php';"><i>Go To Charts</i></button>
+        </div>
+    </div>
+
 </body>
 </html>

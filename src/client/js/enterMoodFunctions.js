@@ -17,8 +17,8 @@ function handleMoodEntrySubmission(e, api_key){
 
     // Send New Entry
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost/Project/src/api/src/submitNewMoodEntryIDapi.php", false); // false for synchronous request
-    // API key
+    xmlHttp.open("POST", "http://localhost/Project/src/api/src/submitNewMoodEntry.php", false); // false for synchronous request
+    // API key 
     xmlHttp.setRequestHeader("X-API-KEY", api_key)
 
     // Form Data
