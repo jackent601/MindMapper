@@ -95,6 +95,8 @@ $_SESSION['LOGGED_IN'] = true;
         <b> Mood Charts! </b>
     </div>
 
+    <div><button class="expandButton uk-align-center" onclick="location.href='./';"><i>home</i></button></div>
+
     <section class="section">
         <div class="container">
 
