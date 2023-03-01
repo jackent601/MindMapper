@@ -45,7 +45,7 @@
     if ($_SERVER['PHP_SELF'] === "/project/src/api/src/verifyApiKeyHeader.php"){
         // verify api key visited directly, hence only an api check
         http_response_code(202);
-        echo json_encode(["message" => "Valid API key provided", "key_owner_user_id" => $user_id]);
+        echo json_encode(["message" => "API Check: Valid API key provided", "key_owner_user_id" => $user_id]);
         exit;
     }else{
         // Not visited directly hence used as a utility so pass
