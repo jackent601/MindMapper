@@ -27,9 +27,15 @@
         exit($conn->error);
     }
     
+    // Check validity
     if ($apiCheck->num_rows <= 0) {
         http_response_code(404);
         echo json_encode(["message" => "Invalid API key provided"]);
+        exit;
+    }
+    if ($apiCheck->num_rows > 1) {
+        http_response_code(404);
+        echo json_encode(["message" => "Multiple API keys found, database integrity compromised!"]);
         exit;
     }
 
