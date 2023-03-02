@@ -3,23 +3,38 @@
     session_start();
     // This will be set at login
     // DEV PURPOSES ONLY
-    $_SESSION["API_KEY"] = "validAPIkeyTest";
-    $_SEESION["USER_NAME"] = "Jackent";
-    $_SESSION['LOGGED_IN'] = true;
+    // $_SESSION["API_KEY"] = "validAPIkeyTest";
+    // $_SEESION["USER_NAME"] = "Jackent";
+    // $_SESSION['LOGGED_IN'] = true;
+?>
+
+<?php 
+    // Catch and redirect if not logged in
+    if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+        header('location: ./login.php');
+    }
 ?>
 
 <script>
     // Translates PHP variables into js as js more convenient to format document
-    var loggedIn_js = 
-    <?php 
-        if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']){
-            echo "true"; 
-        }else{
-            echo "false";
-        }
-    ?>;
-    // Debug
-    console.log("Logged in JS: "+loggedIn_js);
+    // var loggedIn_jsStr = 
+    // <?php 
+    //     if (isset($_SESSION['LOGGED_IN'])){
+    //         if($_SESSION['LOGGED_IN']){
+    //             echo "true"; 
+    //         }else{
+    //             echo "false"; 
+    //         }
+    //     }else{
+    //         echo "false";
+    //     }
+    // ?>;
+    // // Debug
+    // var loggedIn_js = loggedIn_jsStr == "true";
+    // console.log("Logged in JS: "+loggedIn_js);
+    // if(loggedIn_js){
+    //     console.log("this executed");
+    // }
 </script>
 
 <script>
@@ -99,56 +114,54 @@
         Only if logged in Load and Display Moods if logged in
         (loggedin is a session variable set at login (along with api-key))
         */
-        if(loggedIn_js){
+        // if(loggedIn_js){
             // Set Banner (if logged in, username will definitely be set)
-            $(function(){
-                let banner = "<b>Welcome Back <?php echo $_SEESION['USER_NAME'] ?> </b>";
-                $("#jumbo").append(banner);
-            });            
+        console.log("executing");         
 
-            // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
-            $.ajax({
-                url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
-                beforeSend: function(request) {
-                    // Setting x-api-key is crucial to access database and find user_id
-                    request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
-                },
-                type: "GET",
-                dataType: "json",
-                success: function (res) {
-                    // Display Cards
-                    displayMoodEntries(res);
-                    
-                    // Add Hover Event to expand mood context
-                    $('.hoverSwitchParent').hover(
-                    function () {
-                        // Get Child and show
-                        $(this).find('.hoverSwitchChild').toggle('show')
-                    });
-                },
-                error: function (res) {console.log(res);}}) 
+        // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
+        $.ajax({
+            url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
+            beforeSend: function(request) {
+                // Setting x-api-key is crucial to access database and find user_id
+                request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
+            },
+            type: "GET",
+            dataType: "json",
+            success: function (res) {
+                // Display Cards
+                displayMoodEntries(res);
+                
+                // Add Hover Event to expand mood context
+                $('.hoverSwitchParent').hover(
+                function () {
+                    // Get Child and show
+                    $(this).find('.hoverSwitchChild').toggle('show')
+                });
+            },
+            error: function (res) {console.log(res);}}) 
 
-            // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
-            $.ajax({
-                url: "http://localhost/Project/src/api/src/getUserMoodOptionsapi.php",
-                beforeSend: function(request) {
-                    // Setting x-api-key is crucial to access database and find user_id
-                    request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
-                },
-                type: "GET",
-                dataType: "json",
-                success: function (res) {
-                    // Display Cards
-                    populateMoodOptionsEntryForm(res);
-                },
-                error: function (res) {console.log(res);}})
-        }else{
-            // Set Log in Banner
-            $(function(){
-                var banner = "<b>Please Login</b>";
-                $("#jumbo").append(banner);
-            });   
-        }
+        // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
+        $.ajax({
+            url: "http://localhost/Project/src/api/src/getUserMoodOptionsapi.php",
+            beforeSend: function(request) {
+                // Setting x-api-key is crucial to access database and find user_id
+                request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
+            },
+            type: "GET",
+            dataType: "json",
+            success: function (res) {
+                // Display Cards
+                populateMoodOptionsEntryForm(res);
+            },
+            error: function (res) {console.log(res);}})
+        // }else{
+            // If Not logged in redirect to login page
+            // $(function(){
+            //     var banner = "<b>Please Login</b>";
+            //     $("#jumbo").append(banner);
+            // });   
+            // console.log("not logged in");
+        // }
         </script>
     </script>
 </head>
@@ -170,6 +183,7 @@
     </nav>
 
     <div id="jumbo">
+        <b>Welcome Back <?php echo $_SESSION['USER_NAME'] ?>! </b>
     </div>
 
     <div class="uk-section uk-background-muted">

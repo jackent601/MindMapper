@@ -3,9 +3,9 @@
     session_start();
     // This will be set at login
     // DEV PURPOSES ONLY
-    $_SESSION["API_KEY"] = "validAPIkeyTest";
-    $_SESSION["USER_NAME"] = "Jackent";
-    $_SESSION['LOGGED_IN'] = true;
+    // $_SESSION["API_KEY"] = "validAPIkeyTest";
+    // $_SESSION["USER_NAME"] = "Jackent";
+    // $_SESSION['LOGGED_IN'] = true;
     // $_GET['editMoodEntry'] = 4;
 ?>
 
