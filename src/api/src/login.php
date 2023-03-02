@@ -36,11 +36,23 @@
                 if ($credentialCheck->num_rows <= 0) {
                     http_response_code(404);
                     echo json_encode(["message" => "Invalid credentials"]);
+                    $_SESSION['INVALID_CREDENTIALS'] = true;
+                    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                        // login api key visited directly, hence only an api check
+                        exit;
+                    }
+                    header('location: ./../../client/login.php');
                     exit;
                 }
                 if ($credentialCheck->num_rows > 1) {
                     http_response_code(404);
                     echo json_encode(["message" => "Multiple valid credentials found, database integrity compromised!"]);
+                    $_SESSION['INVALID_CREDENTIALS'] = true;
+                    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                        // login api key visited directly, hence only an api check
+                        exit;
+                    }
+                    header('location: ./../../client/login.php');
                     exit;
                 }
 
@@ -55,11 +67,23 @@
                 if ($apiKeyCheck->num_rows <= 0) {
                     http_response_code(404);
                     echo json_encode(["message" => "No API key for user!"]);
+                    $_SESSION['INVALID_CREDENTIALS'] = true;
+                    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                        // login api key visited directly, hence only an api check
+                        exit;
+                    }
+                    header('location: ./../../client/login.php');
                     exit;
                 }
                 if ($apiKeyCheck->num_rows > 1) {
                     http_response_code(404);
                     echo json_encode(["message" => "Multiple api keys for user, database integrity compromised!"]);
+                    $_SESSION['INVALID_CREDENTIALS'] = true;
+                    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                        // login api key visited directly, hence only an api check
+                        exit;
+                    }
+                    header('location: ./../../client/login.php');
                     exit;
                 }
                 // API KEY FOUND, unpack
@@ -81,19 +105,43 @@
                     "user_api_key" => $api_key]);
                     exit;
                 }else{
-                    // Not visited directly hence used as a utility so pass
+                    // Not visited directly hence genuine login request
+                    http_response_code(200);
+                    echo json_encode(["message" => "this is a response"]);
+                    header('location: ./../../client/');
+                    exit;
                 }
             }else{
                 http_response_code(404);
                 echo json_encode(["message" => "No Password provided"]);
+                $_SESSION['INVALID_CREDENTIALS'] = true;
+                if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                    // login api key visited directly, hence only an api check
+                    exit;
+                }
+                header('location: ./../../client/login.php');
+                exit;
             }
 
         }else{
             http_response_code(404);
             echo json_encode(["message" => "No Username provided"]);
+            $_SESSION['INVALID_CREDENTIALS'] = true;
+            if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+                // login api key visited directly, hence only an api check
+                exit;
+            }
+            header('location: ./../../client/login.php');
+            exit;
         }
     }else{
         http_response_code(404);
         echo json_encode(["message" => "Unsupported request method"]);
+        $_SESSION['INVALID_CREDENTIALS'] = true;
+        if ($_SERVER['PHP_SELF'] === "/project/src/api/src/login.php"){
+            // login api key visited directly, hence only an api check
+            exit;
+        }
+        header('location: ./../../client/login.php');
         exit;
     }

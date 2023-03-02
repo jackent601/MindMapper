@@ -39,5 +39,9 @@
 
 .expandButton{
     background:rgb(219, 219, 219);
-    color: rgb(47, 45, 45)
+    color: rgb(47, 45, 45);
+}
+
+.invalidCredentials{
+    color:rgb(236, 36, 36);
 }
