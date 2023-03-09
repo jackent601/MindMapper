@@ -86,7 +86,7 @@ session_start();
 
         <div class="menu">
             <a href="#" class="pseudo button">Shop</a>
-            <a href="#" class="pseudo button">Sign In</a>
+            <a href="./logout.php" class="pseudo button">Log out</a>
             <a href="#" class="pseudo button">Support</a>
         </div>
     </nav>

@@ -177,7 +177,7 @@
       
         <div class="menu">
            <a href="#" class="pseudo button">Shop</a>
-           <a href="./login.php" class="pseudo button">Log In</a>
+           <a href="./logout.php" class="pseudo button">Log out</a>
            <a href="#" class="pseudo button">Support</a>       
         </div>
     </nav>
