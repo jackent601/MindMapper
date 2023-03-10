@@ -39,6 +39,9 @@ Currently separated into modular functions, this means utilities needs loaded se
 - [ ] delete account
 
 - api verification done from session variable to ensure user has been logged in before deleting account, different set up to previous api endpoints that were designed to be session-agnostic, as account deletion seen as a greater security task it relies on session variables
+- api complexity abstraction: 
+  - Because the database is designed for custom moods and mood tags which have FK dependency the order and process of deleting accounts is very important.
+- Can't check with postman as need a valid session, only set through active browsing session (by design)
 
 
 

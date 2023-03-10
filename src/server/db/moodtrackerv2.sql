@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2023 at 06:10 AM
+-- Generation Time: Mar 09, 2023 at 10:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `moodtracker`
+-- Database: `moodtrackerv2`
 --
 
 -- --------------------------------------------------------
@@ -65,7 +65,8 @@ CREATE TABLE `api_keys` (
 --
 
 INSERT INTO `api_keys` (`id`, `user_id`, `api_key`) VALUES
-(1, 1, 'validAPIkeyTest');
+(1, 1, 'validAPIkeyTest'),
+(2, 2, 'user2apikey');
 
 -- --------------------------------------------------------
 
@@ -139,11 +140,17 @@ INSERT INTO `mood_entry` (`id`, `user_id`, `mood_id`, `context`, `datetime`) VAL
 (1, 1, 6, 'testing out custom mood entries for dummy 1', '2023-02-16 00:45:44'),
 (2, 1, 7, 'again testing out custom mood entries for dummy 1', '2023-02-14 00:45:44'),
 (3, 1, 2, 'testing out core moods for dummy1', '2023-02-19 00:46:40'),
-(4, 1, 4, 'again testing out core moods for dummy1', '2023-02-20 00:47:13'),
+(4, 1, 4, 'did my datab', '2023-02-20 00:47:13'),
 (5, 2, 8, 'buzzy buzzy', '2023-02-08 00:47:13'),
 (6, 2, 1, 'too much coffee!', '2023-02-15 00:47:13'),
 (7, 2, 5, 'coffee crash', '2023-02-19 00:48:02'),
-(8, 2, 9, 'stuck in ikea...', '2023-02-20 00:48:53');
+(8, 2, 9, 'stuck in ikea...', '2023-02-20 00:48:53'),
+(9, 1, 2, '', '2023-02-27 21:27:23'),
+(13, 1, 3, 'tonight', '2023-02-28 00:27:17'),
+(14, 1, 6, 'another mood', '2023-02-28 00:51:09'),
+(15, 1, 2, '', '2023-03-01 22:27:04'),
+(16, 1, 8, 'test', '2023-03-01 22:31:55'),
+(17, 1, 4, 'at the airport', '2023-03-09 17:22:03');
 
 -- --------------------------------------------------------
 
@@ -228,7 +235,8 @@ ALTER TABLE `all_moods`
 -- Indexes for table `api_keys`
 --
 ALTER TABLE `api_keys`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_api_user_id` (`user_id`);
 
 --
 -- Indexes for table `core_moods`
@@ -286,7 +294,7 @@ ALTER TABLE `all_moods`
 -- AUTO_INCREMENT for table `api_keys`
 --
 ALTER TABLE `api_keys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `core_moods`
@@ -304,7 +312,7 @@ ALTER TABLE `custom_moods`
 -- AUTO_INCREMENT for table `mood_entry`
 --
 ALTER TABLE `mood_entry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `mood_entry_user_tags`
@@ -316,7 +324,7 @@ ALTER TABLE `mood_entry_user_tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_tags`
@@ -334,6 +342,12 @@ ALTER TABLE `user_tags`
 ALTER TABLE `all_moods`
   ADD CONSTRAINT `FK_all_moods_core_mood_id` FOREIGN KEY (`core_mood_id`) REFERENCES `core_moods` (`id`),
   ADD CONSTRAINT `FK_all_moods_custom_mood_id` FOREIGN KEY (`custom_mood_id`) REFERENCES `custom_moods` (`id`);
+
+--
+-- Constraints for table `api_keys`
+--
+ALTER TABLE `api_keys`
+  ADD CONSTRAINT `FK_api_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `custom_moods`
