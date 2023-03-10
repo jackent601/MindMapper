@@ -15,27 +15,6 @@
     }
 ?>
 
-<script>
-    // Translates PHP variables into js as js more convenient to format document
-    // var loggedIn_jsStr = 
-    // <?php 
-    //     if (isset($_SESSION['LOGGED_IN'])){
-    //         if($_SESSION['LOGGED_IN']){
-    //             echo "true"; 
-    //         }else{
-    //             echo "false"; 
-    //         }
-    //     }else{
-    //         echo "false";
-    //     }
-    // ?>;
-    // // Debug
-    // var loggedIn_js = loggedIn_jsStr == "true";
-    // console.log("Logged in JS: "+loggedIn_js);
-    // if(loggedIn_js){
-    //     console.log("this executed");
-    // }
-</script>
 
 <script>
     // Function to show or hide mood entries
@@ -178,7 +157,7 @@
         <div class="menu">
            <a href="#" class="pseudo button">Shop</a>
            <a href="./logout.php" class="pseudo button">Log out</a>
-           <a href="#" class="pseudo button">Support</a>       
+           <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
         </div>
     </nav>
 

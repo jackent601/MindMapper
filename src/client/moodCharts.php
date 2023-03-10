@@ -8,6 +8,13 @@ session_start();
 // $_SESSION['LOGGED_IN'] = true;
 ?>
 
+<?php 
+    // Catch and redirect if not logged in
+    if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+        header('location: ./login.php');
+    }
+?>
+
 <script>
     // Translates PHP variables into js as js more convenient to format document
     var loggedIn_js =
@@ -85,9 +92,9 @@ session_start();
         <label for="bmenub" class="burger success button">Menu</label>
 
         <div class="menu">
-            <a href="#" class="pseudo button">Shop</a>
-            <a href="./logout.php" class="pseudo button">Log out</a>
-            <a href="#" class="pseudo button">Support</a>
+           <a href="#" class="pseudo button">Shop</a>
+           <a href="./logout.php" class="pseudo button">Log out</a>
+           <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
         </div>
     </nav>
 

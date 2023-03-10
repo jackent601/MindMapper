@@ -3,6 +3,13 @@
     session_start();
 ?>
 
+<?php 
+    // Catch and redirect if not logged in
+    if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+        header('location: ./login.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +35,7 @@
     <script>
         // Set Log in Banner
         $(function(){
-            var banner = "<b>Please Login</b>";
+            var banner = "<b>We are so sorry to see you leave :(</b>";
             $("#jumbo").append(banner);
         });   
     </script>
@@ -44,37 +51,14 @@
         <label for="bmenub" class="burger success button">Menu</label>
       
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
-           <a href="#" class="pseudo button">Sign In</a>
-           <a href="#" class="pseudo button">Support</a>       
+           <a href="./logout.php" class="pseudo button">Log out</a>
         </div>
     </nav>
 
     <div id="jumbo">
-
-    <?php 
-        // Catch case where account has just been deleted
-        if(isset($_SESSION['ACCOUNT_DELETED'])){
-            if($_SESSION['ACCOUNT_DELETED']){
-                echo "<p>Account Successfully Deleted, hope to see you again soon!</p>";
-            }
-            unset($_SESSION['ACCOUNT_DELETED']);
-        }
-    ?>
-        
-    
     </div>
 
-    <!-- Catch If Invalid Credentials Have Been Passed -->
-    <?php 
-        if(isset($_SESSION['INVALID_CREDENTIALS'])){
-            if($_SESSION['INVALID_CREDENTIALS']){
-                echo '<div class="uk-container uk-align-center">';
-                echo '<h4 class="invalidCredentials uk-card-title uk-text-center" color = "red"><i color = "red">Please Provide Valid Login Details</i></h4>';
-                echo '</div>';
-            }
-        }
-    ?>
+
 
     <div class="uk-section uk-background-muted">
         <div class="uk-container uk-align-center">
@@ -83,28 +67,13 @@
                         <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
                             <div class="uk-width-1-1@m">
                                 <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
-                                    <h3 class="uk-card-title uk-text-center">Please Login</h3>
+                                    <h3 class="uk-card-title uk-text-center">Are You 100% Sure You wish to delete your account?</h3>
                                     <form 
-                                    action="./../api/src/login.php" 
+                                    action="./../api/src/deleteAccount.php" 
                                     enctype="application/x-www-form-urlencoded"
                                     method = "POST">
                                         <div class="uk-margin">
-                                            <div class="uk-inline uk-width-1-1">
-                                                <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                                                <input name= "USER_NAME" class="uk-input uk-form-large" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="uk-margin">
-                                            <div class="uk-inline uk-width-1-1">
-                                                <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                                <input name = "PASSWORD" class="uk-input uk-form-large" type="password">	
-                                            </div>
-                                        </div>
-                                        <div class="uk-margin">
-                                            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">Login</button>
-                                        </div>
-                                        <div class="uk-text-small uk-text-center">
-                                            Not registered? <a href="./createAccount.php">Create an account</a>
+                                            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">Yes, Delete My Account</button>
                                         </div>
                                     </form>
                                 </div>
