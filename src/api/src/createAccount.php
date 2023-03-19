@@ -94,7 +94,10 @@
                     exit;
                 }
 
-                $createNewUserSQL = "INSERT INTO users (username, password) VALUES ('$user_name', '$password');";
+                // Hash & Salt Password
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                $createNewUserSQL = "INSERT INTO users (username, password) VALUES ('$user_name', '$hashed_password');";
                 $createNewUser = $conn->query($createNewUserSQL);
 
                 // Create API key for user

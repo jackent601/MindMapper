@@ -25,11 +25,11 @@
                 // Get User Name (escaping strings)
                 $user_name = $conn->real_escape_string($_POST['USER_NAME']);
 
-                // Get Password (escaping strings)
+                // Get unsalted unashed Password (escaping strings)
                 $password = $conn->real_escape_string($_POST['PASSWORD']);
 
                 // Check user exists
-                $credentialCheckSQL = "SELECT * FROM users WHERE username = '$user_name' AND password = '$password'";
+                $credentialCheckSQL = "SELECT * FROM users WHERE username = '$user_name'";
                 $credentialCheck = $conn->query($credentialCheckSQL);
 
                 // Check validity
@@ -48,42 +48,53 @@
                     exit;
                 }
 
-                // Valid User Unpack credentials
+                // User exists, get salted & hashed password
                 $user_credentials = $credentialCheck->fetch_assoc();
-                $user_id = $user_credentials['id'];
+                $hashed_password = $user_credentials['password'];
 
-                // Valid credentials get api key for session
-                $apiKeyCheckSQL = "SELECT * FROM api_keys WHERE user_id = '$user_id'";
-                $apiKeyCheck = $conn->query($apiKeyCheckSQL);
-                // Check validity
-                if ($apiKeyCheck->num_rows <= 0) {
-                    http_response_code(404);
-                    echo json_encode(["message" => "No API key for user!"]);
-                    $_SESSION['INVALID_CREDENTIALS'] = true;                    
-                    header('location: ./../../client/login.php');
+                if(password_verify($password, $hashed_password)) {
+                    // Valid password get api key for session
+                    $user_id = $user_credentials['id'];
+                    $apiKeyCheckSQL = "SELECT * FROM api_keys WHERE user_id = '$user_id'";
+                    $apiKeyCheck = $conn->query($apiKeyCheckSQL);
+                    // Check validity
+                    if ($apiKeyCheck->num_rows <= 0) {
+                        http_response_code(404);
+                        echo json_encode(["message" => "No API key for user!"]);
+                        $_SESSION['INVALID_CREDENTIALS'] = true;                    
+                        header('location: ./../../client/login.php');
+                        exit;
+                    }
+                    if ($apiKeyCheck->num_rows > 1) {
+                        http_response_code(404);
+                        echo json_encode(["message" => "Multiple api keys for user, database integrity compromised!"]);
+                        $_SESSION['INVALID_CREDENTIALS'] = true;
+                        header('location: ./../../client/login.php');
+                        exit;
+                    }
+                    // API KEY FOUND, unpack
+                    $apiKeyValues = $apiKeyCheck->fetch_assoc();
+                    $api_key = $apiKeyValues['api_key'];
+                    
+                    // SET SESSION VARIABLES - IMPORTANT!
+                    $_SESSION["API_KEY"] = $api_key;
+                    $_SESSION['USER_NAME'] = $user_name;
+                    $_SESSION['LOGGED_IN'] = true;
+                    $_SESSION['INVALID_CREDENTIALS'] = false;
+
+                    // Redirect to homepage
+                    http_response_code(200);
+                    header('location: ./../../client/index.php');
                     exit;
-                }
-                if ($apiKeyCheck->num_rows > 1) {
+                }else{
+                    // Invalid password
                     http_response_code(404);
-                    echo json_encode(["message" => "Multiple api keys for user, database integrity compromised!"]);
+                    echo json_encode(["message" => "Invalid Password provided"]);
                     $_SESSION['INVALID_CREDENTIALS'] = true;
                     header('location: ./../../client/login.php');
                     exit;
-                }
-                // API KEY FOUND, unpack
-                $apiKeyValues = $apiKeyCheck->fetch_assoc();
-                $api_key = $apiKeyValues['api_key'];
-                
-                // SET SESSION VARIABLES - IMPORTANT!
-                $_SESSION["API_KEY"] = $api_key;
-                $_SESSION['USER_NAME'] = $user_name;
-                $_SESSION['LOGGED_IN'] = true;
-                $_SESSION['INVALID_CREDENTIALS'] = false;
 
-                // Redirect to homepage
-                http_response_code(200);
-                header('location: ./../../client/index.php');
-                exit;
+                }
             }else{
                 http_response_code(404);
                 echo json_encode(["message" => "No Password provided"]);
