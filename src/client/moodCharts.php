@@ -85,7 +85,7 @@ session_start();
     <nav>
         <a href="./" class="brand">
             <img class="logo" src="./media/logo.png" />
-            <span>Mood tracker</span>
+            <span>Mind Mapper</span>
         </a>
 
         <input id="bmenub" type="checkbox" class="show">

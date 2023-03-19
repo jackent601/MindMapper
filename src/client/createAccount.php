@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Tracker Login</title>
+    <title>Mind Mapper Tracker Login</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>    
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.12/dist/css/uikit.min.css" />
@@ -37,7 +37,7 @@
     <nav>
         <a href="./" class="brand">
           <img class="logo" src="./media/logo.png"/>
-          <span>Mood tracker</span>
+          <span>Mind Mapper</span>
         </a>
         
         <input id="bmenub" type="checkbox" class="show">
