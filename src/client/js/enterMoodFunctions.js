@@ -12,7 +12,7 @@ function handleMoodEntrySubmission(e, api_key){
     }else{
         var newEntryContext = "";
     }
-    var moodName = formData['mood_context'];
+    var moodName = formData['mood_name'];
     var moodValence = formData['cValence'];
     var moodArousal = formData['cArousal'];
     

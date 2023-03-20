@@ -19,7 +19,7 @@
             if(isset($_POST['NEW_ENTRY_MOOD_VALENCE'])){
                 if(isset($_POST['NEW_ENTRY_MOOD_AROUSAL'])){
                     // Unpack entry
-                    $name = $_POST['NEW_ENTRY_MOOD_CONTEXT'];
+                    $name = $_POST['NEW_ENTRY_MOOD_NAME'];
                     $valence = $_POST['NEW_ENTRY_MOOD_VALENCE'];
                     $arousal = $_POST['NEW_ENTRY_MOOD_AROUSAL'];
 
