@@ -44,7 +44,7 @@
         <label for="bmenub" class="burger success button">Menu</label>
       
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
+           <a href="./info.php" class="pseudo button">Info</a>
            <a href="./" class="pseudo button">Sign In</a>
            <a href="#" class="pseudo button">Support</a>       
         </div>

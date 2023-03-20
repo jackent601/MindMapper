@@ -147,7 +147,7 @@
         <label for="bmenub" class="burger success button">Menu</label>
       
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
+           <a href="./info.php" class="pseudo button">Info</a>
            <a href="./logout.php" class="pseudo button">Log out</a>
            <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
         </div>
