@@ -2,7 +2,7 @@
     $host = "localhost";
     $user = "root";
     $pass = "";
-    $db = "moodtrackerv2";
+    $db = "mindtrial";
 
     $conn = new mysqli($host, $user, $pass, $db);
 

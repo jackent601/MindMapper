@@ -9,7 +9,7 @@ function displayMoodEntries(userMoodEntries){
         // Unpack Entry
         var mood_entry_id = moodEntry.id;
         var mood_name = moodEntry.name;
-        var mood_desc = moodEntry.descriptor;
+        // var mood_desc = moodEntry.descriptor;
         var context = moodEntry.context;
         var datetime = moodEntry.datetime;
         // Format Date

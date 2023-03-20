@@ -62,7 +62,7 @@ session_start();
         if (loggedIn_js) {
             // Get moods to chart, not async as want to load immediately            
             $.ajax({
-                url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
+                url: "http://localhost/projectv2/mindmapper/src/api/src/getUserMoodEntriesapi.php",
                 beforeSend: function (request) {
                     // Setting x-api-key is crucial to access database and find user_id
                     request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY'] ?>");

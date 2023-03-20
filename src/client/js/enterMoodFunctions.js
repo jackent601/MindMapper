@@ -6,25 +6,31 @@ function handleMoodEntrySubmission(e, api_key){
     for (var i = 0; i < formDataSerial.length; i++){
         formData[formDataSerial[i]['name']] = formDataSerial[i]['value'];
     }
-    var newEntryMoodID = formData['mood_selection'];
+    // var newEntryMoodID = formData['mood_selection'];
     if('mood_context' in formData){
         var newEntryContext = formData['mood_context'];
     }else{
         var newEntryContext = "";
     }
+    var moodName = formData['mood_context'];
+    var moodValence = formData['cValence'];
+    var moodArousal = formData['cArousal'];
     
     // console.log('Mood id: '+newEntryMoodID+', mood context: '+newEntryContext)
 
     // Send New Entry
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost/Project/src/api/src/submitNewMoodEntry.php", false); // false for synchronous request
+    xmlHttp.open("POST", "http://localhost/projectv2/mindmapper/src/api/src/submitNewMoodEntry.php", false); // false for synchronous request
     // API key 
     xmlHttp.setRequestHeader("X-API-KEY", api_key)
 
     // Form Data
     var data;
     data = new FormData();
-    data.append('NEW_ENTRY_MOOD_ID', newEntryMoodID);
+    // data.append('NEW_ENTRY_MOOD_ID', newEntryMoodID);
+    data.append('NEW_ENTRY_MOOD_NAME', moodName);
+    data.append('NEW_ENTRY_MOOD_VALENCE', moodValence);
+    data.append('NEW_ENTRY_MOOD_AROUSAL', moodArousal);
     data.append('NEW_ENTRY_MOOD_CONTEXT', newEntryContext);
 
     // Send Delete (and log result)
@@ -32,7 +38,7 @@ function handleMoodEntrySubmission(e, api_key){
     console.log(xmlHttp.responseText);
 
     // Redirect to Homepage
-    window.location.href = "http://localhost/Project/src/client/";
+    window.location.href = "http://localhost/projectv2/mindmapper/src/client/";
 }
 
 

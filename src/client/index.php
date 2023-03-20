@@ -99,7 +99,7 @@
 
         // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodEntriesapi.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -121,7 +121,7 @@
 
         // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Project/src/api/src/getUserMoodOptionsapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodOptionsapi.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -133,14 +133,6 @@
                 populateMoodOptionsEntryForm(res);
             },
             error: function (res) {console.log(res);}})
-        // }else{
-            // If Not logged in redirect to login page
-            // $(function(){
-            //     var banner = "<b>Please Login</b>";
-            //     $("#jumbo").append(banner);
-            // });   
-            // console.log("not logged in");
-        // }
         </script>
     </script>
 </head>
@@ -175,10 +167,17 @@
 
                         <legend class="uk-legend">Mood Entry</legend>
 
+                        <p> Choose a pre-set mood or customise your own entry</p>
+
                         <div class="uk-margin">
-                            <h3> Mood </h3>
+                            <h3> Pre-set Moods </h3>
                             <select id="moodOptionSelectDiv" class="uk-select" aria-label="Select" name = "mood_selection">
                             </select>
+                        </div>
+
+                        <div class="uk-margin">
+                            <h3> Mood Name </h3>
+                            <input id = "mood_name" name = "mood_name" class="uk-input" type="text" placeholder="Mood Name" aria-label="Input" Required>
                         </div>
 
 
@@ -210,6 +209,8 @@
                                 ArousalTitle.innerHTML = "Arousal: " + this.value;
                             }
 
+                            var moodNameE = document.getElementById("mood_name");
+
                             // Adjust Values on sliders if an option is selected
                             var moodOption = document.getElementById("moodOptionSelectDiv");
                             moodOption.oninput = function(){
@@ -217,13 +218,17 @@
                                 var mood_id_selected = moodOption.value;
                                 $.ajax({
                                     // Get Mood Info
-                                    url: "http://localhost/Project/src/api/src/getMoodByID.php?MOOD_ID="+mood_id_selected,
+                                    url: "http://localhost/Projectv2/mindmapper/src/api/src/getMoodByID.php?MOOD_ID="+mood_id_selected,
                                     async: false,
                                     type: "GET",
                                     dataType: "json",
                                     success: function (res) {
                                         var selected_arousal = res['arousal'];
                                         var selected_valence = res['valence']; 
+                                        var mood_name = res['name'];
+                                        // Set name value
+                                        moodNameE.value = mood_name;
+
                                         // Set slider values
                                         ArousalTitle.innerHTML = "Arousal: " + selected_arousal;
                                         ArousalSlider.value = selected_arousal;

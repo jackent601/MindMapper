@@ -42,7 +42,7 @@
     // Checks passed, valid api key, get user_id associated with key
     $user_id = $apiCheck->fetch_assoc()["user_id"];
 
-    if ($_SERVER['PHP_SELF'] === "/project/src/api/src/verifyApiKeyHeader.php"){
+    if ($_SERVER['PHP_SELF'] === "/projectv2/mindmapper/src/api/src/verifyApiKeyHeader.php"){
         // verify api key visited directly, hence only an api check
         http_response_code(202);
         echo json_encode(["message" => "API Check: Valid API key provided", "key_owner_user_id" => $user_id]);
