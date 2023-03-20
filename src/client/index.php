@@ -183,7 +183,7 @@
 
 
                         <div class="uk-margin">
-                            <h4> Custom Mood </h4>
+                            <!-- <h4> Custom Mood </h4> -->
                             <h5 id="cValence"> Valence </h5>
                             <input class="uk-range" type="range" id="cValenceSlider" min="-9" max="9" name = "cValence">
                         </div>
