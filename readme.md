@@ -1,66 +1,48 @@
-# Mood Tracker Application
+# Mind Mapper
 
-Submission for completion of part-time MSc Software Development, Queens University Belfast
-
-## ToDo
-
-- [ ] **User Login**
-  - [ ] **Basic**
-  - [ ] **Hash Passwords**
-- [ ] **API Key**
-  - [ ] **Write up method with justification**
-  - [ ] **Set API keys at login**
-- Need a compromise between security (and what is possible in time frame). This was an api key as a query parameter but the api key is hidden from user and from directly ?query, additionally api key only provided at session level on authentication so communication already encrypter under HTTPS _AND_ authentication through proxy of login.
-- Important to note API security is important because a) api requests used to retrieve mood data b) unreasonable to expect user to authenticate for every request c0 don't want to use passwords as direct api auth.
-- Not ideal that api key could be brute forced as api checking end points are technically exposed but by trying but this would quickly be caught by server, and is a risk across all brute forcing strategies!! only defence would be to place balancer between verifyAPIKeyHeader 
-- [x] **logged in session variable**
-- Page only displays moods if logged in, logged in session variable so can only be set at server-level for security
-- Fetching moods further security checks through api, equally a server-level session variable ibid
-- [x] **Displaying moods**
-- By declaring css classes and utilising display quality a jquery event could be set up on hover to expand each card to show description individually when hovered over -> information accessible but not cluttered
-- Likewise overiding the label css in uk-card dulls down delete moods to provide functionality but dissuade users from deleting entries 
-- [x] editing/deleting moods
-- form is used to collect input but normal form submission event is overwritten with javascript utilities to allow for delete confirmation and to set appropriate api keys automatically
-- API: another example of api complexity abstraction, database architecture allows for user tags, this table first needs deleted then the mood entry itself to maintain FK constraint integrity
-- js confirm dialogue box to ensure user wants to delete mood
-- mood entry id attached as id attribute to delete boxes for convenient UI, note no security concerns here having id output in html as api-key verification required to send requests using ids.
-- [x] if deletion confirmed, handled by an on click event by constructing suitable calls to api from within index page. 9again no security concern as api-key is server-level variable)
-- [x] Add Mood Entry
-
-- Form caught with js processing
-- CURRENT_TIMESTAMP used to get datetime, allowing user to specify dates would allow users to circumvent the inability to change mood ids! 
-
-- [ ] JS structure
-
-Currently separated into modular functions, this means utilities needs loaded separately but could be incorporated into functions using ES6
+Mind Mapper is an application to allow users to track their moods over time.
 
 
 
-- [ ] delete account
-
-- api verification done from session variable to ensure user has been logged in before deleting account, different set up to previous api endpoints that were designed to be session-agnostic, as account deletion seen as a greater security task it relies on session variables
-- api complexity abstraction: 
-  - Because the database is designed for custom moods and mood tags which have FK dependency the order and process of deleting accounts is very important.
-- Can't check with postman as need a valid session, only set through active browsing session (by design)
+Moods are captured using a Valence-Arousal circumplex model, more details of the model can be found [here](https://en.wikipedia.org/wiki/Emotion_classification#Circumplex_model).
 
 
 
+Explanation of code base provided below:
 
 
 
-
-Improvements
-
-convert php processes into utilities, e.g. check number of rows
-
-
-
-
-
-Ultimate todos:
-
-config folder to prevent hard coding api paths
-
-user tags
-
-custom moods
+| **Collection**                     | **File**                                           | **Full Path**          | **File Type**                                                | **Description**  |
+| ---------------------------------- | -------------------------------------------------- | ---------------------- | ------------------------------------------------------------ | ---------------- |
+| src                                | readme.md                                          | ./src/readme.md        | Doc                                                          | read me          |
+| api                                | readme.md                                          | ./src/api/readme.md    | API  endpoint                                                | read me          |
+| createAccount.php                  | ./src/api/src/createAccount.php                    | API  endpoint          | create  user account, session variables set                  |                  |
+| deleteAccount.php                  | ./src/api/src/deleteAccount.php                    | API  endpoint          | Delete user account and all associated data                  |                  |
+| deleteMoodEntryFromID.php          | ./src/api/src/deleteMoodEntryFromID.php            | API  endpoint          | Delete specific mood entry for user                          |                  |
+| getMoodEntryFromID.php             | ./src/api/src/getMoodEntryFromID.php               | API  endpoint          | Get single mood entry, by ID, for user                       |                  |
+| getUserMoodEntries.php             | ./src/api/src/getUserMoodEntries.php               | API  endpoint          | Retrieve all mood entries associated to user                 |                  |
+| getUserMoodOptions.php             | ./src/api/src/getUserMoodOptions.php               | API  endpoint          | Get list of all moods available to user                      |                  |
+| login.php                          | ./src/api/src/login.php                            | API  endpoint          | Login to app, session variables set                          |                  |
+| submitNewMoodEntry.php             | ./src/api/src/submitNewMoodEntry.php               | API  endpoint          | Create new mood entry for user                               |                  |
+| updateMoodEntryFromID.php          | ./src/api/src/updateMoodEntryFromIDapi.php         | API  endpoint          | Update specific mood entry context for user                  |                  |
+| dbconn.php                         | ./src/api/src/dbconn.php                           | PHP  utility           | PHP utility  for connection to MySQL database                |                  |
+| verifyApiKeyHeader.php             | ./src/api/src/verifyApiKeyHeader.php               | PHP  utility           | Authenticate  api key header                                 |                  |
+| client                             | Info.php                                           | ./src/client/info.php  | Web Page                                                     | App &  Mood info |
+| createAccount.php                  | ./src/client/createAccount.php                     | Web Page               | User  registration                                           |                  |
+| deleteAccount.php                  | ./src/client/deleteAccount.php                     | Web Page               | User  requesting account deletion                            |                  |
+| editMoodEntry.php                  | ./src/client/editMoodEntry.php                     | Web Page               | Edit Mood  Entry                                             |                  |
+| index.php                          | ./src/client/index.php                             | Web Page               | Home Page                                                    |                  |
+| login.php                          | ./src/client/login.php                             | Web Page               | User  login                                                  |                  |
+| logout.php                         | ./src/client/logout.php                            | Web Page               | User log  out                                                |                  |
+| moodCharts.php                     | ./src/client/moodCharts.php                        | Web Page               | User Mood  Visualisations                                    |                  |
+| readme.md                          | ./src/client/readme.md                             | Doc                    | read me                                                      |                  |
+| mystyles.css                       | ./src/client/css/mystyles.css                      | CSS                    | CSS style  sheet, including overrides                        |                  |
+| chartMoodFunctions.js              | ./src/client/js/chartMoodFunctions.js              | JavaScript  Function   | Parse  mood data into plottable data objects                 |                  |
+| displayMoodEntries.js              | ./src/client/js/displayMoodEntries.js              | JavaScript  Function   | Create  HTML to display moods from list of entries           |                  |
+| editAndDeleteMoodEntryFunctions.js | ./src/client/js/editAndDeleteMoodEntryFunctions.js | JavaScript  Function   | Utilities  for editing/deleting moods, including displaying form and event handlers |                  |
+| enterMoodFunctions.js              | ./src/client/js/enterMoodFunctions.js              | JavaScript  Function   | Utilities  for creating new mood entry                       |                  |
+| utilities.js                       | ./src/client/js/utilities.js                       | JavaScript  Function   | General  utilities for date formatting                       |                  |
+| bkg.jpg                            | ./src/client/media/bkg.jpg                         | Media                  | background  image                                            |                  |
+| logo.png                           | ./src/client/media/logo.png                        | Media                  | logo  image                                                  |                  |
+| server                             | readme.md                                          | ./src/server/readme.md | Doc                                                          | read me          |
+| mindmapper.sql                     | ./src/server/db/mindmapper.sql                     | SQL                    | SQL database file                                            |                  |
