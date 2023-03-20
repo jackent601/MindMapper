@@ -241,6 +241,8 @@
                             <h3> Context </h3>
                             <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
                         </div>
+                        
+                        <button id="moodEntrySubmit" class="moodEntrySubmit uk-align-center", onclick="handleMoodEntrySubmission(event, '<?php echo $_SESSION['API_KEY']?>')">Log Mood</button>
 
                     </fieldset>
                 </form>
