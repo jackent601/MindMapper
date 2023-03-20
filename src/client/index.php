@@ -181,11 +181,66 @@
                             </select>
                         </div>
 
+
                         <div class="uk-margin">
-                            <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
+                            <h4> Custom Mood </h4>
+                            <h5 id="cValence"> Valence </h5>
+                            <input class="uk-range" type="range" id="cValenceSlider" min="-9" max="9" name = "cValence">
+                        </div>
+                        <div>
+                            <h5 id="cArousal"> Arousal </h5>
+                            <input class="uk-range" type="range" id="cArousalSlider" min="-9" max="9" name = "cArousal">
                         </div>
 
-                        <button id="moodEntrySubmit" class="moodEntrySubmit uk-align-center", onclick="handleMoodEntrySubmission(event, '<?php echo $_SESSION['API_KEY']?>')">Log Mood</button>
+                        
+                        <script>
+                            // Display Slider Values
+                            var Valenceslider = document.getElementById("cValenceSlider");
+                            var ValenceTitle = document.getElementById("cValence");
+                            ValenceTitle.innerHTML = "Valence: " + Valenceslider.value;
+
+                            Valenceslider.oninput = function() {
+                                ValenceTitle.innerHTML = "Valence: " + this.value;
+                            }
+                            var ArousalSlider = document.getElementById("cArousalSlider");
+                            var ArousalTitle = document.getElementById("cArousal");
+                            ArousalTitle.innerHTML = "Arousal: " + ArousalSlider.value;
+
+                            ArousalSlider.oninput = function() {
+                                ArousalTitle.innerHTML = "Arousal: " + this.value;
+                            }
+
+                            // Adjust Values on sliders if an option is selected
+                            var moodOption = document.getElementById("moodOptionSelectDiv");
+                            moodOption.oninput = function(){
+                                // get mood arousal and valence values
+                                var mood_id_selected = moodOption.value;
+                                $.ajax({
+                                    // Get Mood Info
+                                    url: "http://localhost/Project/src/api/src/getMoodByID.php?MOOD_ID="+mood_id_selected,
+                                    async: false,
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (res) {
+                                        var selected_arousal = res['arousal'];
+                                        var selected_valence = res['valence']; 
+                                        // Set slider values
+                                        ArousalTitle.innerHTML = "Arousal: " + selected_arousal;
+                                        ArousalSlider.value = selected_arousal;
+
+                                        ValenceTitle.innerHTML = "Valence: " + selected_valence;
+                                        Valenceslider.value = selected_valence;
+                                    },
+                                    error: function (res) { console.log("Failed"); }
+                                })
+                            }
+                        </script>
+
+
+                        <div class="uk-margin">
+                            <h3> Context </h3>
+                            <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
+                        </div>
 
                     </fieldset>
                 </form>
