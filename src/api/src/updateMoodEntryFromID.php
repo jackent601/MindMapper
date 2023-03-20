@@ -3,7 +3,7 @@
 ?>
 <?php
     /*
-    updateMoodEntryFromIDapi API Documentation:
+    updateMoodEntryFromID API Documentation:
 
         Updates a single mood entry based on the mood id provided
 

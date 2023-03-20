@@ -6,7 +6,7 @@ function confirmDelete(e, api_key, mood_entry_id){//}, api_key, mood_entry_id){
         e.preventDefault();
         // Send Delete Query
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("POST", "http://localhost/projectv2/mindmapper/src/api/src/deleteMoodEntryFromIDapi.php", false); // false for synchronous request
+        xmlHttp.open("POST", "http://localhost/projectv2/mindmapper/src/api/src/deleteMoodEntryFromID.php", false); // false for synchronous request
         // API key
         xmlHttp.setRequestHeader("X-API-KEY", api_key)
 
@@ -43,7 +43,7 @@ function confirmEdit(e, api_key, mood_entry_id){//}, api_key, mood_entry_id){
         // const mood_context_form = formFields.moodContext;
         // Send Update Query
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("POST", "http://localhost/projectv2/mindmapper/src/api/src/updateMoodEntryFromIDapi.php", false); // false for synchronous request
+        xmlHttp.open("POST", "http://localhost/projectv2/mindmapper/src/api/src/updateMoodEntryFromID.php", false); // false for synchronous request
         // API key
         xmlHttp.setRequestHeader("X-API-KEY", api_key)
 

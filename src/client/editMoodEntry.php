@@ -68,7 +68,7 @@
             // Load and Display Mood Entry to edit
             // The load function also assigns appropriate api handling for editing/deleting
             $.ajax({
-                url: "http://localhost/Projectv2/mindmapper/src/api/src/getMoodEntryFromIDapi.php?MOOD_ENTRY_ID="+mood_entry_id,
+                url: "http://localhost/Projectv2/mindmapper/src/api/src/getMoodEntryFromID.php?MOOD_ENTRY_ID="+mood_entry_id,
                 beforeSend: function(request) {
                     // Setting x-api-key is crucial to access database and find user_id
                     request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");

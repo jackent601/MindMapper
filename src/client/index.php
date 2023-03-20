@@ -99,7 +99,7 @@
 
         // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodEntriesapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodEntries.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -121,7 +121,7 @@
 
         // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodOptionsapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodOptions.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");

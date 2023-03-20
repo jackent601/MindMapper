@@ -3,7 +3,7 @@
 ?>
 <?php
     /*
-    deleteMoodEntryFromIDapi API Documentation:
+    deleteMoodEntryFromID API Documentation:
 
         Deletes a single mood entry based on the mood id provided
 
