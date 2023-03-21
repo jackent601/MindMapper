@@ -45,8 +45,7 @@
       
         <div class="menu">
            <a href="./info.php" class="pseudo button">Info</a>
-           <a href="./" class="pseudo button">Sign In</a>
-           <a href="#" class="pseudo button">Support</a>       
+           <a href="./" class="pseudo button">Sign In</a>     
         </div>
     </nav>
 

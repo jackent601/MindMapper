@@ -38,6 +38,12 @@
                 exit($conn->error);
             } 
 
+            if ($mood->num_rows < 1){
+                http_response_code(404);
+                echo json_encode(["message" => "Mood not found, check ID"]); 
+                exit;
+            }
+
             // Get results
             $moodResult = $mood->fetch_assoc();
             $custom_id = $moodResult["custom_mood_id"];

@@ -27,7 +27,7 @@
 </head>
 <body>
     <nav>
-        <a href="#" class="brand">
+        <a href="./" class="brand">
           <img class="logo" src="./media/logo.png"/>
           <span>Mind Mapper</span>
         </a>
@@ -37,8 +37,17 @@
       
         <div class="menu">
            <a href="./info.php" class="pseudo button">Info</a>
-           <a href="./logout.php" class="pseudo button">Log out</a>
-           <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
+           <?php 
+                // Catch and redirect if not logged in
+                if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+                    echo "<a href='./login.php' class='pseudo button'>Sign In</a>";  
+                }else{
+                    echo "<a href='./logout.php' class='pseudo button'>Log out</a>";
+                    echo "<a href='./deleteAccount.php' class='pseudo button'>Delete Account</a>"; 
+                }
+            ?>
+           <!-- <a href="./logout.php" class="pseudo button">Log out</a>
+           <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>        -->
         </div>
     </nav>
 

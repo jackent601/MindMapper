@@ -22,12 +22,12 @@
             include "verifyApiKeyHeader.php";
 
             // Check Mood ID is valid (could be functionalised)
-            $checkIDQuery = "SELECT id FROM mood_entry WHERE id='$mood_entry_id';";
+            $checkIDQuery = "SELECT id FROM mood_entry WHERE id='$mood_entry_id'";
             $idCheck = $conn->query($checkIDQuery);
             // Check Not Empty
             if($idCheck->num_rows <= 0){
                 http_response_code(404);
-                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id"]);
+                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id or not mood associated to user"]);
                 exit;
             }
             // Check Database integrity

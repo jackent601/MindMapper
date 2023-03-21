@@ -32,7 +32,7 @@
             include "verifyApiKeyHeader.php";
 
             // Read Mood Entries Build Query joining mood id to mood details
-            $moodQuery = "SELECT * FROM mood_entry WHERE mood_entry.id = '$mood_entry_id'";
+            $moodQuery = "SELECT * FROM mood_entry WHERE mood_entry.id = '$mood_entry_id' AND user_id = '$user_id';";
 
             // Fetch Query
             $moodEntry = $conn->query($moodQuery);
@@ -44,7 +44,7 @@
             // Check Not Empty
             if($moodEntry->num_rows <= 0){
                 http_response_code(404);
-                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id"]);
+                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id or mood not associated to user"]);
                 exit;
             }
 

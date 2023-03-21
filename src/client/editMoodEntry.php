@@ -9,6 +9,13 @@
     // $_GET['editMoodEntry'] = 4;
 ?>
 
+<?php 
+    // Catch and redirect if not logged in
+    if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+        header('location: ./login.php');
+    }
+?>
+
 <script>
     // Translates PHP variables into js as js more convenient to format document
     var loggedIn_js = 

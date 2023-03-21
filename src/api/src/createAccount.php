@@ -140,6 +140,6 @@
     }else{
         http_response_code(404);
         echo json_encode(["message" => "Unsupported request method"]);
-        header('location: ./../../client/createAccount.php');
+        // header('location: ./../../client/createAccount.php');
         exit;
     }
