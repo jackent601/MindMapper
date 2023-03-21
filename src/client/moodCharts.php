@@ -62,7 +62,7 @@ session_start();
         if (loggedIn_js) {
             // Get moods to chart, not async as want to load immediately            
             $.ajax({
-                url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
+                url: "http://localhost/projectv2/mindmapper/src/api/src/getUserMoodEntries.php",
                 beforeSend: function (request) {
                     // Setting x-api-key is crucial to access database and find user_id
                     request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY'] ?>");
@@ -92,7 +92,7 @@ session_start();
         <label for="bmenub" class="burger success button">Menu</label>
 
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
+           <a href="./info.php" class="pseudo button">Info</a>
            <a href="./logout.php" class="pseudo button">Log out</a>
            <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
         </div>

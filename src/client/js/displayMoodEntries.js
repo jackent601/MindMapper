@@ -9,7 +9,9 @@ function displayMoodEntries(userMoodEntries){
         // Unpack Entry
         var mood_entry_id = moodEntry.id;
         var mood_name = moodEntry.name;
-        var mood_desc = moodEntry.descriptor;
+        var mood_valence = moodEntry.valence;
+        var mood_arousal = moodEntry.arousal;
+        // var mood_desc = moodEntry.descriptor;
         var context = moodEntry.context;
         var datetime = moodEntry.datetime;
         // Format Date
@@ -25,6 +27,7 @@ function displayMoodEntries(userMoodEntries){
         "<b>" + mood_name + "</b>"+
         // Add hidden context which is expnded on hover
         "<p class = 'hoverSwitchChild'><i>" + context + "</i></p>" +
+        "<p class = 'hoverSwitchChild'><i> Valence: " + mood_valence + " Arousal: " + mood_arousal +  "</i></p>" +
         "</div></div>"
 
         // Add to DOM

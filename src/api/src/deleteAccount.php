@@ -51,10 +51,6 @@
                 $api_key = $_SESSION['API_KEY'];
                 $user_id = $conn->query("SELECT * FROM api_keys WHERE api_key = '$api_key'")->fetch_assoc()["user_id"];
 
-                // Debug
-                // echo "User id \n";
-                // echo $user_id; echo "\n";
-
                 // =====================================================================================================
                 // Delete Mood Entry Information (including mood tags)
                 // =====================================================================================================
@@ -62,17 +58,9 @@
                 $mood_entry_ids = $conn->query("SELECT id FROM mood_entry WHERE user_id = '$user_id';");
                 $mood_entry_ids_IN_string = getSQL_IN_stringFromQuery($mood_entry_ids);
 
-                // Debug
-                // echo "Mood Ids: \n";
-                // echo $mood_entry_ids_IN_string; echo "\n";
-
                 // Get all user tags for this ID (Need to first get ids to delete entries in M-M MoodEntry-Tag table)
                 $user_tag_ids = $conn->query("SELECT id FROM user_tags WHERE user_id = '$user_id';");
                 $user_tag_ids_IN_string = getSQL_IN_stringFromQuery($user_tag_ids);
-
-                // Debug
-                // echo "User Tag IDs: \n";
-                // echo $user_tag_ids_IN_string; echo "\n";
 
                 // Delete all mood_entry_user_tags (delete entries in M-M MoodEntry-Tag table)
                 $delete_mood_entry_user_tags = $conn->query("DELETE FROM mood_entry_user_tags 
@@ -144,6 +132,6 @@
     }else{
         http_response_code(404);
         echo json_encode(["message" => "Unsupported request method"]);
-        header('location: ./../../client/deleteAccount.php');
+        // header('location: ./../../client/deleteAccount.php');
         exit;
     }

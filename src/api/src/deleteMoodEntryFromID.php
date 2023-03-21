@@ -3,7 +3,7 @@
 ?>
 <?php
     /*
-    deleteMoodEntryFromIDapi API Documentation:
+    deleteMoodEntryFromID API Documentation:
 
         Deletes a single mood entry based on the mood id provided
 
@@ -22,12 +22,12 @@
             include "verifyApiKeyHeader.php";
 
             // Check Mood ID is valid (could be functionalised)
-            $checkIDQuery = "SELECT id FROM mood_entry WHERE id='$mood_entry_id';";
+            $checkIDQuery = "SELECT id FROM mood_entry WHERE id='$mood_entry_id'";
             $idCheck = $conn->query($checkIDQuery);
             // Check Not Empty
             if($idCheck->num_rows <= 0){
                 http_response_code(404);
-                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id"]);
+                echo json_encode(["message" => "No rows for entry, likely invalid mood entry id or not mood associated to user"]);
                 exit;
             }
             // Check Database integrity
@@ -54,7 +54,7 @@
             if ($deleted){
                 // Successful deletion, redirect to homepage
                 http_response_code(200);
-                header("location: http://localhost/project/src/client/index.php");
+                header("location: http://localhost/projectv2/mindmapper/src/client/index.php");
                 exit;
             }else{
                 http_response_code(404);

@@ -99,7 +99,7 @@
 
         // Load previous Mood to display for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Project/src/api/src/getUserMoodEntriesapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodEntries.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -121,7 +121,7 @@
 
         // Load and Display Moods for this user (user id found from session variable set at login, through api-key verification)
         $.ajax({
-            url: "http://localhost/Project/src/api/src/getUserMoodOptionsapi.php",
+            url: "http://localhost/Projectv2/mindmapper/src/api/src/getUserMoodOptions.php",
             beforeSend: function(request) {
                 // Setting x-api-key is crucial to access database and find user_id
                 request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -133,14 +133,6 @@
                 populateMoodOptionsEntryForm(res);
             },
             error: function (res) {console.log(res);}})
-        // }else{
-            // If Not logged in redirect to login page
-            // $(function(){
-            //     var banner = "<b>Please Login</b>";
-            //     $("#jumbo").append(banner);
-            // });   
-            // console.log("not logged in");
-        // }
         </script>
     </script>
 </head>
@@ -155,7 +147,7 @@
         <label for="bmenub" class="burger success button">Menu</label>
       
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
+           <a href="./info.php" class="pseudo button">Info</a>
            <a href="./logout.php" class="pseudo button">Log out</a>
            <a href="./deleteAccount.php" class="pseudo button">Delete Account</a>       
         </div>
@@ -175,16 +167,86 @@
 
                         <legend class="uk-legend">Mood Entry</legend>
 
+                        <p> Choose a pre-set mood or customise your own entry</p>
+
                         <div class="uk-margin">
-                            <h3> Mood </h3>
+                            <h3> Pre-set Moods </h3>
                             <select id="moodOptionSelectDiv" class="uk-select" aria-label="Select" name = "mood_selection">
                             </select>
                         </div>
 
                         <div class="uk-margin">
-                            <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
+                            <h3> Mood Name </h3>
+                            <input id = "mood_name" name = "mood_name" class="uk-input" type="text" placeholder="Mood Name" aria-label="Input" Required>
                         </div>
 
+
+                        <div class="uk-margin">
+                            <!-- <h4> Custom Mood </h4> -->
+                            <h5 id="cValence"> Valence </h5>
+                            <input class="uk-range" type="range" id="cValenceSlider" min="-9" max="9" name = "cValence">
+                        </div>
+                        <div>
+                            <h5 id="cArousal"> Arousal </h5>
+                            <input class="uk-range" type="range" id="cArousalSlider" min="-9" max="9" name = "cArousal">
+                        </div>
+
+                        
+                        <script>
+                            // Display Slider Values
+                            var Valenceslider = document.getElementById("cValenceSlider");
+                            var ValenceTitle = document.getElementById("cValence");
+                            ValenceTitle.innerHTML = "Valence: " + Valenceslider.value;
+
+                            Valenceslider.oninput = function() {
+                                ValenceTitle.innerHTML = "Valence: " + this.value;
+                            }
+                            var ArousalSlider = document.getElementById("cArousalSlider");
+                            var ArousalTitle = document.getElementById("cArousal");
+                            ArousalTitle.innerHTML = "Arousal: " + ArousalSlider.value;
+
+                            ArousalSlider.oninput = function() {
+                                ArousalTitle.innerHTML = "Arousal: " + this.value;
+                            }
+
+                            var moodNameE = document.getElementById("mood_name");
+
+                            // Adjust Values on sliders if an option is selected
+                            var moodOption = document.getElementById("moodOptionSelectDiv");
+                            moodOption.oninput = function(){
+                                // get mood arousal and valence values
+                                var mood_id_selected = moodOption.value;
+                                $.ajax({
+                                    // Get Mood Info
+                                    url: "http://localhost/Projectv2/mindmapper/src/api/src/getMoodByID.php?MOOD_ID="+mood_id_selected,
+                                    async: false,
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (res) {
+                                        var selected_arousal = res['arousal'];
+                                        var selected_valence = res['valence']; 
+                                        var mood_name = res['name'];
+                                        // Set name value
+                                        moodNameE.value = mood_name;
+
+                                        // Set slider values
+                                        ArousalTitle.innerHTML = "Arousal: " + selected_arousal;
+                                        ArousalSlider.value = selected_arousal;
+
+                                        ValenceTitle.innerHTML = "Valence: " + selected_valence;
+                                        Valenceslider.value = selected_valence;
+                                    },
+                                    error: function (res) { console.log("Failed"); }
+                                })
+                            }
+                        </script>
+
+
+                        <div class="uk-margin">
+                            <h3> Context </h3>
+                            <input name = "mood_context" class="uk-input" type="text" placeholder="Conext (optional)" aria-label="Input">
+                        </div>
+                        
                         <button id="moodEntrySubmit" class="moodEntrySubmit uk-align-center", onclick="handleMoodEntrySubmission(event, '<?php echo $_SESSION['API_KEY']?>')">Log Mood</button>
 
                     </fieldset>

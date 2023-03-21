@@ -3,7 +3,7 @@
 ?>
 <?php
     /*
-    updateMoodEntryFromIDapi API Documentation:
+    updateMoodEntryFromID API Documentation:
 
         Updates a single mood entry based on the mood id provided
 
@@ -49,7 +49,7 @@
                 if ($updated){
                     // Successful deletion, redirect to homepage
                     http_response_code(200);
-                    header("location: http://localhost/project/src/client/index.php");
+                    header("location: http://localhost/projectv2/mindmapper/src/client/index.php");
                     exit;
                 }else{
                     http_response_code(404);

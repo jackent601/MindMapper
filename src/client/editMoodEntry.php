@@ -9,6 +9,13 @@
     // $_GET['editMoodEntry'] = 4;
 ?>
 
+<?php 
+    // Catch and redirect if not logged in
+    if (!isset($_SESSION['LOGGED_IN']) or !$_SESSION['LOGGED_IN']){
+        header('location: ./login.php');
+    }
+?>
+
 <script>
     // Translates PHP variables into js as js more convenient to format document
     var loggedIn_js = 
@@ -68,7 +75,7 @@
             // Load and Display Mood Entry to edit
             // The load function also assigns appropriate api handling for editing/deleting
             $.ajax({
-                url: "http://localhost/Project/src/api/src/getMoodEntryFromIDapi.php?MOOD_ENTRY_ID="+mood_entry_id,
+                url: "http://localhost/Projectv2/mindmapper/src/api/src/getMoodEntryFromID.php?MOOD_ENTRY_ID="+mood_entry_id,
                 beforeSend: function(request) {
                     // Setting x-api-key is crucial to access database and find user_id
                     request.setRequestHeader("X-API-KEY", "<?php echo $_SESSION['API_KEY']?>");
@@ -105,7 +112,7 @@
         <label for="bmenub" class="burger success button">Menu</label>
       
         <div class="menu">
-           <a href="#" class="pseudo button">Shop</a>
+           <a href="./info.php" class="pseudo button">Info</a>
            <a href="#" class="pseudo button">Sign In</a>
            <a href="#" class="pseudo button">Support</a>       
         </div>
